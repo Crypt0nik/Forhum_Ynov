@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <title>Discussion Page</title>
+
+    <style>
+        body {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+    </style>
+
+</head>
+<body onload="document.body.style.opacity='1'">
+    <header>
+        <div class="head">FORHUM.</div>
+        <input class="search" type="search" placeholder="rechercher">
+        <a href="/createpost"> créer </a>
+    </header>
+    <section class="boxxx">
+        <div class="boxx">
+            <nav>
+                <ul>
+                    <li class="category">
+                        <a class="home" href="#">Accueil</a>
+                    </li>
+                    <hr class="navigader">
+                    <li class="category">
+                        <a>DÉGUSTATION & CRITIQUES</a>
+                        
+                            <li><div href="#" data-category-id="1">Notes de dégustation</div></li>
+                            <li><div href="#" data-category-id="2">Avis sur les marques</div></li>
+                            <li><div href="#" data-category-id="3">Les millésimes</div></li>
+                        
+                    </li>
+                    <hr class="navigader">
+                    <li class="category">
+                        <a>COKTAILS AU RHUM</a>
+                        
+                            <li><div href="#" data-category-id="4">Recette coktails</div></li>
+                            <li><div href="#" data-category-id="5">Conseils préparation</div></li>
+                            <li><div href="#" data-category-id="6">Nouvelles combinaisons</div></li>
+                        
+                    </li>
+                    <hr class="navigader">
+                    <li class="category">
+                        <a>HISTOIRE & CULTURE</a>
+                        
+                            <li><div href="#" data-category-id="7">Origine du rhum</div></li>
+                            <li><div href="#" data-category-id="8">Évenement historiques</div></li>
+                            <li><div href="#" data-category-id="9">Influence culturelle</div></li>
+                        
+                    </li>
+                    <hr class="navigader">
+                    <li class="category">
+                        <a>FABRICATION DU RHUM</a>
+                        
+                            <li><div href="#" data-category-id="10">Processus de distillation</div></li>
+                            <li><div href="#" data-category-id="11">Types de rhum</div></li>
+                            <li><div href="#" data-category-id="12">Lieux de distilleries</div></li>
+                        
+                    </li>
+                </ul>
+            </nav>      
+
+            
+            
+            <script>
+                function fetchAndDisplayMessagesByCategory(categoryId) {
+                    fetch("/get-messages-by-category", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ category_id: categoryId }), 
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        var messagesSection = document.querySelector(".bigmessages");
+                        messagesSection.innerHTML = "";
+
+                        data.forEach(message => {
+                            messagesSection.innerHTML += `
+                                <div class="message" id="${message.ID}">
+                                    <div class="title">${message.Title}</div>
+                                    <div class="content">${message.Content}</div>
+                                </div>
+                                <hr class="divider">
+                            `;
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la récupération des messages :", error);
+                    });
+                }
+
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    var categoryLinks = document.querySelectorAll(".category a");
+
+                    categoryLinks.forEach(function(link) {
+                        link.addEventListener("click", function(event) {
+                            event.preventDefault();
+                            var categoryId = event.target.getAttribute("data-category-id");
+                            fetchAndDisplayMessagesByCategory(categoryId);
+                        });
+                    });
+
+                });
+            </script>
+
+                <div class="bigmessages">
+                    {{ range .Messages }}
+                    <div class="message" id="{{ .ID }}">
+                        <p>
+                            <div class="message-info">
+                                <div class="name">
+                                    {{ .Username }} 
+                                    <span> • {{ .CreationDate }}</span>
+                                </div>
+                                <div class="like-button">
+                                    <form action="/like-message" method="post">
+                                        <input type="hidden" name="messageID" value="{{ .ID }}">
+                                        <button class="like" type="submit" id="likeButton">
+                                            <img class="heart-icon-empty" src="/assets/images/coeur_vide.png" alt="Cœur vide">
+                                            <img class="heart-icon-filled" src="/assets/images/coeur-rouge.png" alt="Cœur rempli">
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="title">
+                                {{ .Title }} 
+                            </div>
+                            <div class="content">
+                                {{ .Content }}    
+                            </div>
+                            <div class="imagee">
+                                <!-- Ici, vous pourrez ajouter un chemin vers une image si nécessaire -->
+                            </div>                            
+                        </p>
+                    </div>
+                    <hr class="divider">
+                    {{ end }}
+                </div>
+                    <aside>
+                        <button class="augdiv" id="toggleHeightButton">Augmenter la hauteur de la div</button>
+                        <br>
+                        <button class="cochang" id="changeColors">Changer les couleurs</button>
+                    </aside>
+            </div>
+    </section>
+        
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var changeColorsButton = document.getElementById("changeColors");
+            var root = document.documentElement;
+            var isColorChanged = false;
+
+            // Appliquer les couleurs stockées dans le localStorage si elles existent
+            if (localStorage.getItem('isColorChanged') === 'true') {
+                root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
+                root.style.setProperty('--secondary-color', 'var(--secondary-color-green)');
+                root.style.setProperty('--third-color', 'var(--third-color-purples)');
+                root.style.setProperty('--four-color', 'var(--four-color-yellow)');
+                isColorChanged = true;
+            }
+
+            changeColorsButton.addEventListener("click", function() {
+                if (!isColorChanged) {
+                    root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
+                    root.style.setProperty('--secondary-color', 'var(--secondary-color-green)');
+                    root.style.setProperty('--third-color', 'var(--third-color-purples)');
+                    root.style.setProperty('--four-color', 'var(--four-color-yellow)');
+                    isColorChanged = true;
+                    localStorage.setItem('isColorChanged', 'true');
+                } else {
+                    root.style.setProperty('--primary-color', 'var(--primary-color-default)');
+                    root.style.setProperty('--secondary-color', 'var(--secondary-color-default)');
+                    root.style.setProperty('--third-color', 'var(--third-color-default)');
+                    root.style.setProperty('--four-color', 'var(--four-color-default)');
+                    isColorChanged = false;
+                    localStorage.removeItem('isColorChanged');
+                }
+            });
+
+            // Appliquer les couleurs aux messages déjà likés
+            var likedMessages = document.querySelectorAll(".message");
+            likedMessages.forEach(function(message) {
+                var messageID = message.id;
+                if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
+                    message.style.backgroundColor = 'var(--four-color, var(--four-color-default))';
+                }
+            });
+
+            // Ajouter l'événement click pour chaque bouton "like"
+            var likeButtons = document.querySelectorAll(".like-button");
+            likeButtons.forEach(function(likeButton) {
+                likeButton.addEventListener("click", function(event) {
+                    var messageID = event.target.closest('.message').id;
+                    if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
+                        localStorage.removeItem('likedMessage_' + messageID);
+                    } else {
+                        localStorage.setItem('likedMessage_' + messageID, 'true');
+                    }
+                });
+            });
+            var deleteButtons = document.querySelectorAll(".delete-button");
+            deleteButtons.forEach(function(deleteButton) {
+                deleteButton.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    var messageID = event.target.closest('.message').id;
+                    
+                    fetch("/delete-message", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ message_id: messageID }), 
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Actualiser la liste des messages
+                        fetchAndDisplayMessagesByCategory(currentCategoryId);  // Remplacez currentCategoryId par la variable qui contient l'ID de la catégorie actuellement affichée
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la suppression du message :", error);
+                    });
+                });
+            });
+        });
+
+    </script>
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var toggleHeightButton = document.getElementById("toggleHeightButton");
+                var boxxDiv = document.querySelector(".boxx");
+                var isExpanded = false;
+    
+                toggleHeightButton.addEventListener("click", function() {
+                 
+                    if (isExpanded) {
+                 
+                        boxxDiv.style.height = "fit-content";
+                        boxxDiv.style.position = "relative";
+                        isExpanded = false;
+                    } else {
+                
+                        boxxDiv.style.height = "85" + '%';
+                        boxxDiv.style.position = "fixed";
+                        isExpanded = true;
+                    }
+                });
+            });
+        </script>
+    
+    <!-- <section>
+        <div class="bigmessages">
+            {{ range .FavoriteMessages }}
+            <div class="message">
+                <p>
+                    <div class="name">
+                        {{ .Username }} 
+                        <span> • {{ .CreationDate }}</span>
+                    </div>
+                    <div class="title">
+                        {{ .Title }} 
+                    </div>
+                    <div class="content">
+                        {{ .Content }}
+                    </div>
+                </p>
+            </div>
+            <hr class="divider">
+            {{ end }}
+        </div>
+    </section>
+ -->
+</body>
+</html>

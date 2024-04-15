@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --primary-color-default: #D84B2C;
+    --secondary-color-default: #E65F41;
+    --third-color-default: #F2F2F2;
+    --four-color-default: #D55337;
+    --fifth-color-default: #3e3d3e;
+    
+
+    --primary-color-blue: #0C1416;
+    --secondary-color-green: #1b282c;
+    --third-color-purple: #6F42C1;
+    --four-color-yellow: #141F23;
+    --fifth-color-orange: #3e3d3e;
+}
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: var(--primary-color, var(--primary-color-default));
+    line-height: 1.6;
+    scrollbar-width: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+aside {
+    margin-top: 2%;
+    border-radius: 10px;
+    background-color: #3d226f;
+    width: 23%;
+    height: 90%;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-left: 30px;
+}
+
+header {
+    top: 0;
+    position: fixed;
+    z-index: 5;
+    display: flex;
+    justify-content:space-between;
+    background-color: var(--secondary-color, var(--secondary-color-default));
+    font-size: 2.5em;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    color: white;
+}
+
+header .head {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: 900;
+    letter-spacing:-3px;
+    margin-left: 20px;
+}
+
+header .search {
+    border: none;    
+    background-color: transparent;
+    margin-left: -80px;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 900;
+    letter-spacing: -3px;
+    
+}
+
+.search:focus {
+    outline: none;
+    caret-color: transparent;
+}
+
+::placeholder {
+    color: white;
+}
+
+header .profil {
+    display: flex;
+    align-items: center;
+}
+
+section {
+    height: 50vw;
+}
+
+
+nav {
+    position: fixed;
+    opacity: 0.7;
+    margin-top: 2%;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    background-color: var(--fifth-color, var(--fifth-color-default));
+    width: 20%;
+    height: 78%;
+    border-radius: 0px 10px 10px 0px ;
+}
+
+.boxx {
+    position: fixed;
+    display: flex;
+    
+    background-color: var(--secondary-color, var(--secondary-color-default));
+    color: white;
+    margin-top: 7%;
+    height: 85%;
+    border-radius: 0px 10px 10px 0px ;
+    
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.delete-button {
+    font-size: 3em;
+    transform: scale(3);
+}
+
+.navigader{
+    position: relative;
+    z-index: 1;
+    border-style: solid;
+    border-color: white;
+    transform: scale(0.4);
+    width: 480px;
+    margin-left: -135px;   
+}
+
+.divider {
+    display: none;
+    border-style: solid;
+    border-color: white;
+    transform: scale(0.4);
+    width: 1410px;
+    margin-left: -420px;
+    
+}
+
+li {
+    margin-top: 7px;
+    padding: 8px;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+ul {
+    margin-left: -10px;
+    max-height: 94%;
+    overflow-y: auto; /* Ajout de la barre de défilement verticale */
+    
+}
+
+ul li ul li a {
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.home {
+    text-decoration: none;
+    color: white;
+}
+
+
+.bigmessages {
+    background-color: var(--fifth-color, var(--fifth-color-default));
+    padding: 30px 40px 30px 40px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    font-family: 'Inter', sans-serif;
+    width: 44%;
+    margin-left: 325px;
+    margin-top: 2%;
+    border-radius: 15px;
+    opacity: 0.7;
+    transition: all 0.4s ease-in;
+    height: 83.67%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sub-category {
+    display: block;
+}
+
+.sub-category li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+.sub-category a {
+    text-decoration: none;
+    color: gray;
+}
+
+.message {
+    margin: 20px;
+    padding-top: 15px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    border-radius: 8px;
+    padding-right: 30px;
+    transition: all 0.4s ease-in;
+}
+
+.message:hover {
+    background-color: var(--four-color, var(--four-color-default));
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    transition:cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.name {
+    flex: 1;
+    font-size: 0.8em;
+}
+
+span {
+    opacity: 0.5;
+}
+
+.title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: large;
+    font-weight: 700;
+}
+
+
+.like-button button {
+    position: relative; /* Permet de positionner les images à l'intérieur du bouton */
+    border: none;
+    scale: 0.15;
+    margin-left: 440px;
+    background-color: transparent;    
+    transition: transform 0.3s ease-in-out; /* Animation de transition pour le scale */
+}
+
+.like-button button img {
+    
+    margin-top: -290px;
+    position: absolute; /* Positionnement absolu pour superposer les images */
+    transition: opacity 0.3s ease-in-out; /* Animation de transition pour l'opacité */
+}
+
+.like-button button:hover .heart-icon-filled {
+    
+    opacity: 1; /* Affiche l'image du cœur rempli au survol */
+}
+
+.like-button button .heart-icon-filled {
+    
+    opacity: 0; /* Masque l'image du cœur rempli par défaut */
+}
+
+
+.message-info {
+    height: 25px;
+}
+
+

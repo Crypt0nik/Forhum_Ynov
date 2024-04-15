@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --primary-color-default: #D84B2C;
+    --secondary-color-default: #E65F41;
+    --third-color-default: #F2F2F2;
+    --four-color-default: #D55337;
+    
+
+    --primary-color-blue: #0C1416;
+    --secondary-color-green: #1b282c;
+    --third-color-purple: #6F42C1;
+    --four-color-yellow: #141F23;
+}
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: var(--primary-color, var(--primary-color-default));
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+    line-height: 1.6;
+    scrollbar-width: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+body.fade-out {
+    opacity: 0;
+}
+
+.forhum {
+    transform: scale(1.1);
+}
+
+.FO {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20%;
+    color: white;
+    font-weight: 900;
+    letter-spacing: -20px;
+    font-size: 14em;
+}
+
+.rhuumm {
+    position: relative;
+    transform: scale(1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -635px;
+    margin-left: 30px;
+    z-index: 6;
+    
+}
+
+.rhuumm img {
+    max-width: 100%; 
+    height: auto; 
+}

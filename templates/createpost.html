@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer un message</title>
+</head>
+<body>
+
+<h1>Créer un message</h1>
+
+<form action="/save-message" method="post" enctype="multipart/form-data">
+    <label for="title">Titre :</label>
+    <input type="text" id="title" name="title"><br>
+
+    <label for="content">Contenu :</label>
+    <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
+
+    <input type="submit" value="Créer">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/forhum.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <title>FORHUM</title>
+</head>
+<body>
+    <div class="forhum">
+        <h1 class="FO">FORHUM.</h1>
+        <div class="rhuumm">
+            <a href="#" id="link"> <img src="../assets/images/rhum.png" alt="RHUM"></a>    
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var changeColorsButton = document.getElementById("changeColors");
+            var root = document.documentElement;
+            var isColorChanged = localStorage.getItem('isColorChanged') === 'true';
+    
+            if (isColorChanged) {
+                root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
+                root.style.setProperty('--secondary-color', 'var(--secondary-color-green)');
+                root.style.setProperty('--third-color', 'var(--third-color-purples)');
+                root.style.setProperty('--four-color', 'var(--four-color-yellow)');
+            }
+    
+            changeColorsButton.addEventListener("click", function() {
+                if (!isColorChanged) {
+                    root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
+                    root.style.setProperty('--secondary-color', 'var(--secondary-color-green)');
+                    root.style.setProperty('--third-color', 'var(--third-color-purples)');
+                    root.style.setProperty('--four-color', 'var(--four-color-yellow)');
+                    localStorage.setItem('isColorChanged', 'true');
+                } else {
+                    root.style.setProperty('--primary-color', 'var(--primary-color-default)');
+                    root.style.setProperty('--secondary-color', 'var(--secondary-color-default)');
+                    root.style.setProperty('--third-color', 'var(--third-color-default)');
+                    root.style.setProperty('--four-color', 'var(--four-color-default)');
+                    localStorage.removeItem('isColorChanged');
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        // Redirection automatique après 1,5 secondes
+        setTimeout(function() {
+            document.body.classList.add('fade-out'); // Ajoute la classe pour la transition de fondu
+            
+            setTimeout(function() {
+                window.location.href = '/homepage';
+            }, 1000);  // Attendre 1 seconde après la transition de fondu pour la redirection
+        }, 2500);  // Délai de 1,5 secondes avant de commencer la transition de fondu
+    </script>
+</body>
+</html>

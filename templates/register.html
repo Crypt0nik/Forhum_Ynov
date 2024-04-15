@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/login.css">
+    <title>Authentification</title>
+</head>
+<body>
+    <div class="roum">
+        <img src="/assets/images/rhum.png" alt="Bouteille de rhum" class="rumm">
+    </div>
+    <section class="user">
+        <div class="user_options-container">
+            <div class="user_options-text">
+                <div class="user_options-unregistered">
+                    <h2 class="user_unregistered-title">Tu n'as pas de compte ? </h2>
+                    <p class="user_unregistered-text">Inscris toi ! Et découvre le meilleur forum sur le Rhum, je suis sûr que tu veux voir a quoi ça ressemble</p>
+                    <button class="user_unregistered-signup" id="signup-button">Profite Du Rhum</button>
+                </div>
+
+                <div class="user_options-registered">
+                    <h2 class="user_registered-title">T'as un compte ?</h2>
+                    <p class="user_registered-text">T'as déjà un compte alors tu as déjà pu découvrir l'univers du Rhum, t'en penses quoi chef ?</p>
+                    <button class="user_registered-login" id="login-button">Je retourne boire du Rhum !</button>
+                </div>
+            </div>
+            
+            <div class="user_options-forms" id="user_options-forms">
+                <div class="user_forms-login">
+                    <h2 class="forms_title">Se Connecter</h2>
+                    <form action="/login" method="post">
+                        <fieldset class="forms_fieldset">
+                            <div class="forms_field">
+                                <input type="text" id="username" placeholder="Pseudonyme" name="username" class="forms_field-input" required><br>
+                            </div>
+                            <div class="forms_field">
+                                <input type="password" placeholder="Mot de passe" id="password" name="password" class="forms_field-input" required><br>
+                                <input type="hidden" name="action" value="login">
+                            </div>
+                        </fieldset>    
+                        <div class="forms_buttons">
+                            <button type="button" class="forms_buttons-forgot">Mot de passe oublié</button>
+                            <input type="submit" value="Se connecter" class="forms_buttons-action">
+                        </div>
+                    </form>
+                </div>
+                <div class="user_forms-signup">
+                    <h2 class="forms_title">S'inscrire</h2>
+                    <form action="/register" method="post"> 
+                        <fieldset class="forms_fieldset">
+                            <div class="forms_field">
+                                <input type="text" id="reg-username" placeholder="Pseudonyme" name="username" class="forms_field-input" required><br>
+                            </div>                            
+                            <div class="forms_field">
+                                <input type="password" id="reg-password" placeholder="Mot de passe" name="password" class="forms_field-input" required><br>
+                            </div>
+                        </fieldset>                           
+                        <div class="forms_buttons">
+                            <input type="submit" value="S'inscrire" class="forms_buttons-action">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+       const signupButton = document.getElementById('signup-button'),
+           loginButton = document.getElementById('login-button'),
+           userForms = document.getElementById('user_options-forms')
+       
+       signupButton.addEventListener('click', () => {
+         userForms.classList.remove('bounceRight')
+         userForms.classList.add('bounceLeft')
+       }, false)
+       
+       loginButton.addEventListener('click', () => {
+         userForms.classList.remove('bounceLeft')
+         userForms.classList.add('bounceRight')
+       }, false)
+       
+    </script>
+
+<!-- 
+    <h2>Inscription</h2>
+    <form action="/register" method="post">
+        <label for="reg-username">Nom d'utilisateur:</label>
+        <input type="text" id="reg-username" name="username" required><br>
+
+        <label for="reg-password">Mot de passe:</label>
+        <input type="password" id="reg-password" name="password" required><br>
+
+        <input type="submit" value="S'inscrire">
+    </form>
+    <h2>Connexion</h2>
+    <form action="/login" method="post">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <input type="hidden" name="action" value="login">
+
+        <input type="submit" value="Se connecter">
+    </form>
+</body>
+</html>
+
+ -->
