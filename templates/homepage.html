@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Définition du jeu de caractères et de la vue -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Liens vers les fichiers CSS -->
     <link rel="stylesheet" href="../assets/style.css">
+    
+    <!-- Liens vers les polices Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    
+    <!-- Titre de la page -->
     <title>Discussion Page</title>
 
+    <!-- Style pour l'animation de transition -->
     <style>
         body {
             opacity: 0;
@@ -18,61 +26,77 @@
 
 </head>
 <body onload="document.body.style.opacity='1'">
+    <!-- En-tête du site -->
     <header>
+        <!-- Titre du site -->
         <div class="head">FORHUM.</div>
+        
+        <!-- Champ de recherche et lien pour créer un post -->
         <input class="search" type="search" placeholder="rechercher">
-        <a href="/createpost"> créer </a>
+        <a class="createe" href="/createpost"> CREER </a>
     </header>
+    
+    <!-- Section principale du site -->
     <section class="boxxx">
         <div class="boxx">
+            <!-- Navigation par catégories -->
             <nav>
                 <ul>
+                    <!-- Accueil -->
                     <li class="category">
                         <a class="home" href="#">Accueil</a>
                     </li>
                     <hr class="navigader">
+                    
+                    <!-- Catégorie : Dégustation & Critiques -->
                     <li class="category">
                         <a>DÉGUSTATION & CRITIQUES</a>
                         
-                            <li><div href="#" data-category-id="1">Notes de dégustation</div></li>
-                            <li><div href="#" data-category-id="2">Avis sur les marques</div></li>
-                            <li><div href="#" data-category-id="3">Les millésimes</div></li>
-                        
+                        <!-- Sous-catégories -->
+                        <li><div href="#" data-category-id="1">Notes de dégustation</div></li>
+                        <li><div href="#" data-category-id="2">Avis sur les marques</div></li>
+                        <li><div href="#" data-category-id="3">Les millésimes</div></li>
                     </li>
                     <hr class="navigader">
+                    
+                    <!-- Catégorie : Cocktails au rhum -->
                     <li class="category">
                         <a>COKTAILS AU RHUM</a>
                         
-                            <li><div href="#" data-category-id="4">Recette coktails</div></li>
-                            <li><div href="#" data-category-id="5">Conseils préparation</div></li>
-                            <li><div href="#" data-category-id="6">Nouvelles combinaisons</div></li>
-                        
+                        <!-- Sous-catégories -->
+                        <li><div href="#" data-category-id="4">Recette cocktails</div></li>
+                        <li><div href="#" data-category-id="5">Conseils préparation</div></li>
+                        <li><div href="#" data-category-id="6">Nouvelles combinaisons</div></li>
                     </li>
                     <hr class="navigader">
+                    
+                    <!-- Catégorie : Histoire & Culture -->
                     <li class="category">
                         <a>HISTOIRE & CULTURE</a>
                         
-                            <li><div href="#" data-category-id="7">Origine du rhum</div></li>
-                            <li><div href="#" data-category-id="8">Évenement historiques</div></li>
-                            <li><div href="#" data-category-id="9">Influence culturelle</div></li>
-                        
+                        <!-- Sous-catégories -->
+                        <li><div href="#" data-category-id="7">Origine du rhum</div></li>
+                        <li><div href="#" data-category-id="8">Événements historiques</div></li>
+                        <li><div href="#" data-category-id="9">Influence culturelle</div></li>
                     </li>
                     <hr class="navigader">
+                    
+                    <!-- Catégorie : Fabrication du rhum -->
                     <li class="category">
                         <a>FABRICATION DU RHUM</a>
                         
-                            <li><div href="#" data-category-id="10">Processus de distillation</div></li>
-                            <li><div href="#" data-category-id="11">Types de rhum</div></li>
-                            <li><div href="#" data-category-id="12">Lieux de distilleries</div></li>
-                        
+                        <!-- Sous-catégories -->
+                        <li><div href="#" data-category-id="10">Processus de distillation</div></li>
+                        <li><div href="#" data-category-id="11">Types de rhum</div></li>
+                        <li><div href="#" data-category-id="12">Lieux de distilleries</div></li>
                     </li>
                 </ul>
-            </nav>      
+            </nav>
 
-            
-            
+            <!-- Script pour récupérer et afficher les messages par catégorie -->
             <script>
                function fetchAndDisplayMessagesByCategory(categoryId) {
+                // Requête POST pour récupérer les messages par catégorie
                 fetch("/get-messages-by-category", {
                     method: "POST",
                     headers: {
@@ -85,6 +109,7 @@
                     var messagesSection = document.querySelector(".bigmessages");
                     messagesSection.innerHTML = "";
 
+                    // Affichage des messages
                     data.forEach(message => {
                         let parsedContent = parseMessageContent(message.Content);
                         
@@ -102,20 +127,21 @@
                 });
             }
 
-                document.addEventListener("DOMContentLoaded", function() {
-                    var categoryLinks = document.querySelectorAll(".category a");
+            // Événement pour chaque lien de catégorie
+            document.addEventListener("DOMContentLoaded", function() {
+                var categoryLinks = document.querySelectorAll(".category a");
 
-                    categoryLinks.forEach(function(link) {
-                        link.addEventListener("click", function(event) {
-                            event.preventDefault();
-                            var categoryId = event.target.getAttribute("data-category-id");
-                            fetchAndDisplayMessagesByCategory(categoryId);
-                        });
+                categoryLinks.forEach(function(link) {
+                    link.addEventListener("click", function(event) {
+                        event.preventDefault();
+                        var categoryId = event.target.getAttribute("data-category-id");
+                        fetchAndDisplayMessagesByCategory(categoryId);
                     });
-
                 });
+            });
             </script>
 
+            <!-- Fonction pour parser le contenu des messages -->
             <script>
             function parseMessageContent(content) {
                 // Remplacer **texte** par <strong>texte</strong>
@@ -128,59 +154,73 @@
             }
             </script>
 
+            <!-- Arrière-plan dégradé -->
             <div class="degradBG">
                 <img src="/assets/images/RectangleDégradé.png" alt="Rectangle Dégradé Violet" class="degg">
             </div>
 
-                <div class="bigmessages">
-                    {{ range .Messages }}
-                    <div class="message" id="{{ .ID }}">
-                        <p>
-                            <div class="message-info">
-                                <div class="name">
-                                    {{ .Username }} 
-                                    <span> • {{ .CreationDate }}</span>
-                                </div>
-                                <div class="like-button">
-                                    <form action="/like-message" method="post">
-                                        <input type="hidden" name="messageID" value="{{ .ID }}">
-                                        <button class="like" type="submit" id="likeButton" style="position: relative;">
-                                            <img class="heart-icon-empty" src="/assets/images/coeur_vide.png" alt="Cœur vide">
-                                            <img class="heart-icon-filled" src="/assets/images/coeur-rouge.png" alt="Cœur rempli">
-                                        </button>
-                                        <div class="div-a-affciher">
-                                            <img src="/assets/images/rhum.png" alt="rhum like" style="display: none;">
-                                        </div>
-                                    </form>
-                                </div>
+            <!-- Section pour afficher les messages -->
+            <div class="bigmessages">
+                {{ range .Messages }}
+                <!-- Structure d'un message -->
+                <div class="message" id="{{ .ID }}">
+                    <p>
+                        <div class="message-info">
+                            <div class="name">
+                                {{ .Username }} 
+                                <span> • {{ .CreationDate }}</span>
                             </div>
-                            <div class="title">
-                                {{ .Title }} 
+                            <!-- Bouton "J'aime" -->
+                            <div class="like-button">
+                                <form action="/like-message" method="post">
+                                    <input type="hidden" name="messageID" value="{{ .ID }}">
+                                    <button class="like" type="submit" id="likeButton" style="position: relative;">
+                                        <img class="heart-icon-empty" src="/assets/images/coeur_vide.png" alt="Cœur vide">
+                                        <img class="heart-icon-filled" src="/assets/images/coeur-rouge.png" alt="Cœur rempli">
+                                    </button>
+                                    <!-- Image de like -->
+                                    <div class="div-a-affciher">
+                                        <img src="/assets/images/rhum.png" alt="rhum like" style="display: none;">
+                                    </div>
+                                </form>
                             </div>
-                            <div class="content">
-                                {{ .Content }}    
-                            </div>
-                            <div class="imagee">
-                                
-                            </div>                            
-                        </p>
-                    </div>
-                    <hr class="divider">
-                    {{ end }}
+                        </div>
+                        <!-- Titre et contenu du message -->
+                        <div class="title">
+                            {{ .Title }} 
+                        </div>
+                        <div class="content">
+                            {{ .Content }}    
+                        </div>
+                        <div class="imagee">
+                            
+                        </div>                            
+                    </p>
                 </div>
-                    <aside>
-                        <button class="augdiv" id="toggleHeightButton">Augmenter la hauteur de la div</button>
-                        <br>
-                        <script>
-                            //faire Bouton Priorité
-                        </script>
-                        <button class="cochang" onclick="" id="changeColors">Changer les couleurs <span style="font-weight: 900;">BETA</span> </button>
-
-                    </aside>
-            
+                <hr class="divider">
+                {{ end }}
             </div>
+            
+            <!-- Section latérale -->
+            <aside>
+                <!-- Photo et informations de l'utilisateur -->
+                <img src="/assets/images/IMG_0264.png" alt="Photo de moi " class="moi">
+                <div class="infos">
+                    <div class="nombreape">Arthur Chessé</div>
+                    <div class="devvv">Développeur Informatique en B1</div>
+                    <div class="bio">Un forum dédié au rhum, où passionnés et experts se retrouvent pour partager leurs connaissances, déguster de nouvelles saveurs et explorer l'univers fascinant de cette boisson emblématique des tropiques.</div>
+                </div>
+                <!-- Boutons pour augmenter la hauteur de la div et changer les couleurs -->
+                <div class="boutt">
+                    <button class="augdiv" id="toggleHeightButton">Augmenter la hauteur de la div</button>
+                    <br>
+                    <button class="cochang" onclick="" id="changeColors">Changer les couleurs <span style="font-weight: 900;">BETA</span> </button>
+                </div>
+            </aside>
+        </div>
     </section>
-        
+    
+    <!-- Script pour changer les couleurs -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var changeColorsButton = document.getElementById("changeColors");
@@ -198,6 +238,7 @@
                 isColorChanged = true;
             }
 
+            // Événement pour le bouton de changement de couleurs
             changeColorsButton.addEventListener("click", function() {
                 if (!isColorChanged) {
                     root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
@@ -255,6 +296,7 @@
                 }
             });
 
+            // Événement pour le bouton de suppression de message
             var deleteButtons = document.querySelectorAll(".delete-button");
             deleteButtons.forEach(function(deleteButton) {
                 deleteButton.addEventListener("click", function(event) {
@@ -282,29 +324,29 @@
 
     </script>
     
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var toggleHeightButton = document.getElementById("toggleHeightButton");
-                var boxxDiv = document.querySelector(".boxx");
-                var isExpanded = false;
-    
-                toggleHeightButton.addEventListener("click", function() {
-                 
-                    if (isExpanded) {
-                 
-                        boxxDiv.style.height = "fit-content";
-                        boxxDiv.style.position = "relative";
-                        isExpanded = false;
-                    } else {
-                
-                        boxxDiv.style.height = "85" + '%';
-                        boxxDiv.style.position = "fixed";
-                        isExpanded = true;
-                    }
-                });
+    <!-- Script pour augmenter la hauteur de la div -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleHeightButton = document.getElementById("toggleHeightButton");
+            var boxxDiv = document.querySelector(".boxx");
+            var isExpanded = false;
+
+            // Événement pour le bouton d'augmentation de hauteur
+            toggleHeightButton.addEventListener("click", function() {
+                if (isExpanded) {
+                    boxxDiv.style.height = "fit-content";
+                    boxxDiv.style.position = "relative";
+                    isExpanded = false;
+                } else {
+                    boxxDiv.style.height = "85" + '%';
+                    boxxDiv.style.position = "fixed";
+                    isExpanded = true;
+                }
             });
-        </script>
+        });
+    </script>
     
+    <!-- Section pour les messages favoris (commentée) -->
     <!-- <section>
         <div class="bigmessages">
             {{ range .FavoriteMessages }}

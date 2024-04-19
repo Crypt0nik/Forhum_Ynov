@@ -35,13 +35,56 @@ body {
 }
 
 aside {
-    margin-top: 2%;
+    margin-top: 5%;
     border-radius: 10px;
     background-color: var(--third-color, var(--third-color-default));
     width: 23%;
-    height: 90%;
+    height: 65%;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
     margin-left: 30px;
+}
+
+    .moi {
+        position: absolute;
+        z-index: 99;
+        box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+        transform: scale(0.05);
+        border-radius: 230px;
+        margin-top: -1888px;
+        margin-left: -1400px;
+        object-fit: cover; /* Crop the image to fit the container */
+        
+    }
+
+.bio {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 35px;
+    width: 270px;
+}
+
+h1 {
+    background-color: red;
+}
+
+.infos {
+    margin-top: 91px;
+}
+
+.nombreape {
+    display: flex;
+    padding: 6px;
+    margin-left: 190px;
+    font-weight: 800;
+    margin-bottom: -40px;
+    font-size: 1.1em;
+    width: 40px;
+}
+
+
+.moi:hover {
+    transform: scale(0.055);
+    transition: all 0.3s ease-in-out;
 }
 
 header {
@@ -92,6 +135,16 @@ header .profil {
     display: flex;
     align-items: center;
 }
+
+.createe {
+    font-weight: 900;
+    letter-spacing:-3px;
+    color: white;
+    text-decoration: none;
+    text-underline-offset: 0px;
+    margin-right: 10px;
+}
+
 
 section {
     height: 50vw;
@@ -240,6 +293,13 @@ ul li ul li a {
     font-size: 0.8em;
 }
 
+.devvv {
+    padding: 6px;
+    width: 140px;
+    margin-left: 190px;
+    margin-top: 52px;
+}
+
 span {
     opacity: 0.5;
 }
@@ -278,6 +338,30 @@ span {
     opacity: 0; /* Masque l'image du cœur rempli par défaut */
 }
 
+.boutt {
+    display: flex;
+    justify-content:space-between;
+    gap: 5px;
+    align-items: center;
+    margin-top:25%;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+button {
+    background-color: var(--secondary-color, var(--secondary-color-default));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--third-color, var(--third-color-default));
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
 
 .message-info {
     height: 25px;
@@ -285,6 +369,7 @@ span {
 
 .degg {
     position: absolute;
-    margin-top: 20%;
+    margin-top: 15%;
     margin-left: 20%;
 }
+

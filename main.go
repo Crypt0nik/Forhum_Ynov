@@ -2,12 +2,11 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
-	"encoding/json"
-	
 
 	_ "github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
@@ -241,31 +240,30 @@ func saveMessage(username, title, content string) error {
 }
 
 func getMessages() ([]Message, error) {
-    query := `SELECT m.id, u.nom_utilisateur, m.titre, m.contenu, m.date_creation 
+	query := `SELECT m.id, u.nom_utilisateur, m.titre, m.contenu, m.date_creation 
                FROM messages m 
                JOIN utilisateurs u ON m.nom_utilisateur = u.nom_utilisateur 
                LEFT JOIN supprimer s ON m.id = s.message_id 
                WHERE s.message_id IS NULL 
                ORDER BY m.date_creation DESC`
-    rows, err := db.Query(query)
-    if err != nil {
-        return nil, err
-    }
-    defer rows.Close()
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 
-    var messages []Message
-    for rows.Next() {
-        var msg Message
-        err := rows.Scan(&msg.ID, &msg.Username, &msg.Title, &msg.Content, &msg.CreationDate)
-        if err != nil {
-            return nil, err
-        }
-        messages = append(messages, msg)
-    }
+	var messages []Message
+	for rows.Next() {
+		var msg Message
+		err := rows.Scan(&msg.ID, &msg.Username, &msg.Title, &msg.Content, &msg.CreationDate)
+		if err != nil {
+			return nil, err
+		}
+		messages = append(messages, msg)
+	}
 
-    return messages, nil
+	return messages, nil
 }
-
 
 func discussionHandler(w http.ResponseWriter, r *http.Request) {
 	// Charger et afficher le fichier HTML homepage.html
@@ -475,49 +473,49 @@ func getCategories() ([]string, error) {
 }
 
 func deleteMessage(messageID int) error {
-    query := "DELETE FROM messages WHERE id = ?"
-    _, err := db.Exec(query, messageID)
-    if err != nil {
-        return err
-    }
-    return nil
+	query := "DELETE FROM messages WHERE id = ?"
+	_, err := db.Exec(query, messageID)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func markMessageForDeletion(messageID int) error {
-    query := "INSERT INTO supprimer (message_id) VALUES (?)"
-    _, err := db.Exec(query, messageID)
-    if err != nil {
-        return err
-    }
-    return nil
+	query := "INSERT INTO supprimer (message_id) VALUES (?)"
+	_, err := db.Exec(query, messageID)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 func deleteMessageHandler(w http.ResponseWriter, r *http.Request) {
-    if r.Method != http.MethodPost {
-        http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
-        return
-    }
+	if r.Method != http.MethodPost {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
+	}
 
-    // Récupérer l'ID du message à supprimer
-    var messageID struct {
-        MessageID int `json:"message_id"`
-    }
-    err := json.NewDecoder(r.Body).Decode(&messageID)
-    if err != nil {
-        http.Error(w, "Erreur lors de la lecture de l'ID du message", http.StatusBadRequest)
-        return
-    }
+	// Récupérer l'ID du message à supprimer
+	var messageID struct {
+		MessageID int `json:"message_id"`
+	}
+	err := json.NewDecoder(r.Body).Decode(&messageID)
+	if err != nil {
+		http.Error(w, "Erreur lors de la lecture de l'ID du message", http.StatusBadRequest)
+		return
+	}
 
-    err = deleteMessage(messageID.MessageID)
-    if err != nil {
-        http.Error(w, "Erreur lors de la suppression du message", http.StatusInternalServerError)
-        return
-    }
+	err = deleteMessage(messageID.MessageID)
+	if err != nil {
+		http.Error(w, "Erreur lors de la suppression du message", http.StatusInternalServerError)
+		return
+	}
 
-    // Envoyer une réponse JSON pour indiquer que la suppression a réussi
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(map[string]interface{}{
-        "status": "success",
-    })
+	// Envoyer une réponse JSON pour indiquer que la suppression a réussi
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"status": "success",
+	})
 }
 
 func main() {
