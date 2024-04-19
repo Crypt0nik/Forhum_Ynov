@@ -2,20 +2,33 @@
 <html>
 <head>
     <title>Créer un message</title>
+    <link rel="stylesheet" href="/assets/creation.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 <body>
 
-<h1>Créer un message</h1>
+    <header>
+        <div class="head">FORHUM.</div>
+        <input class="search" type="search" placeholder="rechercher">
+        <a class="creation" href="/createpost"> CRÉER. </a>
+    </header>
 
-<form action="/save-message" method="post" enctype="multipart/form-data">
-    <label for="title">Titre :</label>
-    <input type="text" id="title" name="title"><br>
+    <div class="all">
+        <h1><span>Créer</span> une Publication</h1>
+        <div class="backs">
 
-    <label for="content">Contenu :</label>
-    <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
 
-    <input type="submit" value="Créer">
-</form>
-
+            <form action="/save-message" method="post" enctype="multipart/form-data">
+            
+                <div class="titcon">
+                    <input class="titt" type="text" id="title" name="title" placeholder="Titre"><br>
+                    <textarea class="textarea" id="content" name="content" placeholder="Écrivez votre post ici..."></textarea> <br>
+                    
+                </div>
+                <input class="inpp" type="submit" value="Créer">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

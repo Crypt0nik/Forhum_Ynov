@@ -72,34 +72,35 @@
             
             
             <script>
-                function fetchAndDisplayMessagesByCategory(categoryId) {
-                    fetch("/get-messages-by-category", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ category_id: categoryId }), 
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        var messagesSection = document.querySelector(".bigmessages");
-                        messagesSection.innerHTML = "";
+               function fetchAndDisplayMessagesByCategory(categoryId) {
+                fetch("/get-messages-by-category", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ category_id: categoryId }), 
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var messagesSection = document.querySelector(".bigmessages");
+                    messagesSection.innerHTML = "";
 
-                        data.forEach(message => {
-                            messagesSection.innerHTML += `
-                                <div class="message" id="${message.ID}">
-                                    <div class="title">${message.Title}</div>
-                                    <div class="content">${message.Content}</div>
-                                </div>
-                                <hr class="divider">
-                            `;
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Erreur lors de la récupération des messages :", error);
+                    data.forEach(message => {
+                        let parsedContent = parseMessageContent(message.Content);
+                        
+                        messagesSection.innerHTML += `
+                            <div class="message" id="${message.ID}">
+                                <div class="title">${message.Title}</div>
+                                <div class="content">${parsedContent}</div>
+                            </div>
+                            <hr class="divider">
+                        `;
                     });
-                }
-
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la récupération des messages :", error);
+                });
+            }
 
                 document.addEventListener("DOMContentLoaded", function() {
                     var categoryLinks = document.querySelectorAll(".category a");
@@ -115,6 +116,22 @@
                 });
             </script>
 
+            <script>
+            function parseMessageContent(content) {
+                // Remplacer **texte** par <strong>texte</strong>
+                content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Remplacer *texte* par <em>texte</em>
+                content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+                return content;
+            }
+            </script>
+
+            <div class="degradBG">
+                <img src="/assets/images/RectangleDégradé.png" alt="Rectangle Dégradé Violet" class="degg">
+            </div>
+
                 <div class="bigmessages">
                     {{ range .Messages }}
                     <div class="message" id="{{ .ID }}">
@@ -127,10 +144,13 @@
                                 <div class="like-button">
                                     <form action="/like-message" method="post">
                                         <input type="hidden" name="messageID" value="{{ .ID }}">
-                                        <button class="like" type="submit" id="likeButton">
+                                        <button class="like" type="submit" id="likeButton" style="position: relative;">
                                             <img class="heart-icon-empty" src="/assets/images/coeur_vide.png" alt="Cœur vide">
                                             <img class="heart-icon-filled" src="/assets/images/coeur-rouge.png" alt="Cœur rempli">
                                         </button>
+                                        <div class="div-a-affciher">
+                                            <img src="/assets/images/rhum.png" alt="rhum like" style="display: none;">
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -141,7 +161,7 @@
                                 {{ .Content }}    
                             </div>
                             <div class="imagee">
-                                <!-- Ici, vous pourrez ajouter un chemin vers une image si nécessaire -->
+                                
                             </div>                            
                         </p>
                     </div>
@@ -151,7 +171,7 @@
                     <aside>
                         <button class="augdiv" id="toggleHeightButton">Augmenter la hauteur de la div</button>
                         <br>
-                        <button class="cochang" id="changeColors">Changer les couleurs</button>
+                        <button class="cochang" id="changeColors">Changer les couleurs <span style="font-weight: 900;">BETA</span> </button>
                     </aside>
             </div>
     </section>
@@ -166,8 +186,10 @@
             if (localStorage.getItem('isColorChanged') === 'true') {
                 root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
                 root.style.setProperty('--secondary-color', 'var(--secondary-color-green)');
-                root.style.setProperty('--third-color', 'var(--third-color-purples)');
+                root.style.setProperty('--third-color', 'var(--third-color-purple)');
                 root.style.setProperty('--four-color', 'var(--four-color-yellow)');
+                root.style.setProperty('--fifth-color', 'var(--fifth-color-orange)');
+
                 isColorChanged = true;
             }
 
@@ -175,8 +197,9 @@
                 if (!isColorChanged) {
                     root.style.setProperty('--primary-color', 'var(--primary-color-blue)');
                     root.style.setProperty('--secondary-color', 'var(--secondary-color-green)');
-                    root.style.setProperty('--third-color', 'var(--third-color-purples)');
+                    root.style.setProperty('--third-color', 'var(--third-color-purple)');
                     root.style.setProperty('--four-color', 'var(--four-color-yellow)');
+                    root.style.setProperty('--fifth-color', 'var(--fifth-color-orange)');
                     isColorChanged = true;
                     localStorage.setItem('isColorChanged', 'true');
                 } else {
@@ -184,32 +207,66 @@
                     root.style.setProperty('--secondary-color', 'var(--secondary-color-default)');
                     root.style.setProperty('--third-color', 'var(--third-color-default)');
                     root.style.setProperty('--four-color', 'var(--four-color-default)');
+                    root.style.setProperty('--fifth-color', 'var(--fifth-color-default)');
                     isColorChanged = false;
                     localStorage.removeItem('isColorChanged');
                 }
             });
 
             // Appliquer les couleurs aux messages déjà likés
-            var likedMessages = document.querySelectorAll(".message");
-            likedMessages.forEach(function(message) {
-                var messageID = message.id;
-                if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
-                    message.style.backgroundColor = 'var(--four-color, var(--four-color-default))';
-                }
-            });
+            // var likedMessages = document.querySelectorAll(".message");
+            // likedMessages.forEach(function(message) {
+            //     var messageID = message.id;
+            //     if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
+            //         message.style.backgroundColor = 'var(--four-color, var(--four-color-default))';
+                    
+            //         var divToDisplay = message.querySelector(".div-a-afficher");
+    
+            //         if (divToDisplay) {
+            //             divToDisplay.style.display = 'block';
+            //         }
+            //     }
+            // });
 
+            
+        
             // Ajouter l'événement click pour chaque bouton "like"
             var likeButtons = document.querySelectorAll(".like-button");
             likeButtons.forEach(function(likeButton) {
                 likeButton.addEventListener("click", function(event) {
-                    var messageID = event.target.closest('.message').id;
+                    event.preventDefault(); // Empêcher le formulaire de se soumettre
+                    
+                    var messageID = event.currentTarget.closest('.message').id;
+                    var message = event.currentTarget.closest('.message');
+                    var divToDisplay = event.currentTarget.querySelector(".div-a-affciher img");
+
                     if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
                         localStorage.removeItem('likedMessage_' + messageID);
+                        divToDisplay.style.display = 'none'; // Masquer l'image
+                        message.style.backgroundColor = 'transparent'; // Retirer la couleur de fond
                     } else {
                         localStorage.setItem('likedMessage_' + messageID, 'true');
+                        divToDisplay.style.display = 'block'; // Afficher l'image
+                        message.style.backgroundColor = 'var(--four-color, var(--four-color-default))'; // Changer la couleur de fond
                     }
                 });
             });
+
+            // Appliquer les couleurs et l'affichage des images aux messages déjà likés
+            var likedMessages = document.querySelectorAll(".message");
+            likedMessages.forEach(function(message) {
+                var messageID = message.id;
+                var divToDisplay = message.querySelector(".div-a-affciher img");
+
+                if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
+                    divToDisplay.style.display = 'block'; // Afficher l'image
+                    message.style.backgroundColor = 'var(--four-color, var(--four-color-default))'; // Changer la couleur de fond
+                } else {
+                    divToDisplay.style.display = 'none'; // Masquer l'image
+                    message.style.backgroundColor = 'transparent'; // Retirer la couleur de fond
+                }
+            });
+
             var deleteButtons = document.querySelectorAll(".delete-button");
             deleteButtons.forEach(function(deleteButton) {
                 deleteButton.addEventListener("click", function(event) {

@@ -2,16 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-    --primary-color-default: #D84B2C;
-    --secondary-color-default: #E65F41;
-    --third-color-default: #F2F2F2;
-    --four-color-default: #D55337;
-    
+    --primary-color-default: #0C1416;
+    --secondary-color-default: #1b282c;
+    --third-color-default: #6F42C1;
+    --four-color-default: #6F42C1;
+    --fifth-color-default: #141F23;
 
-    --primary-color-blue: #0C1416;
-    --secondary-color-green: #1b282c;
-    --third-color-purple: #6F42C1;
-    --four-color-yellow: #141F23;
+    --primary-color-blue: #D84B2C;
+    --secondary-color-green: #E65F41;
+    --third-color-purple: #dda092;
+    --four-color-yellow: #E65F41;
+    --fifth-color-orange: #E65F41;
 }
 
 
