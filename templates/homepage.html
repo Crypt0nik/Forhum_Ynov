@@ -171,8 +171,13 @@
                     <aside>
                         <button class="augdiv" id="toggleHeightButton">Augmenter la hauteur de la div</button>
                         <br>
-                        <button class="cochang" id="changeColors">Changer les couleurs <span style="font-weight: 900;">BETA</span> </button>
+                        <script>
+                            //faire Bouton Priorité
+                        </script>
+                        <button class="cochang" onclick="" id="changeColors">Changer les couleurs <span style="font-weight: 900;">BETA</span> </button>
+
                     </aside>
+            
             </div>
     </section>
         
@@ -212,23 +217,6 @@
                     localStorage.removeItem('isColorChanged');
                 }
             });
-
-            // Appliquer les couleurs aux messages déjà likés
-            // var likedMessages = document.querySelectorAll(".message");
-            // likedMessages.forEach(function(message) {
-            //     var messageID = message.id;
-            //     if (localStorage.getItem('likedMessage_' + messageID) === 'true') {
-            //         message.style.backgroundColor = 'var(--four-color, var(--four-color-default))';
-                    
-            //         var divToDisplay = message.querySelector(".div-a-afficher");
-    
-            //         if (divToDisplay) {
-            //             divToDisplay.style.display = 'block';
-            //         }
-            //     }
-            // });
-
-            
         
             // Ajouter l'événement click pour chaque bouton "like"
             var likeButtons = document.querySelectorAll(".like-button");

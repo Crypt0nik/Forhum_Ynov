@@ -32,6 +32,13 @@ body {
     overflow-x: hidden;
 }
 
+
+
+
+button {
+    
+}
+
 body.fade-out {
     opacity: 0;
 }

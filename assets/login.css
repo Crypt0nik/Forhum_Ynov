@@ -17,6 +17,10 @@
 }
 
 
+.test {
+  filter: blur(10px);
+}
+
  * {
     box-sizing: border-box;
   }
@@ -360,3 +364,5 @@
    scale: 1.2;
    rotate: 3deg;
   }
+
+  
